@@ -267,6 +267,7 @@
         }
 
         input[type="text"],
+        input[type="email"],
         select,
         textarea {
             width: 100%;
@@ -282,6 +283,7 @@
         }
 
         input[type="text"]:focus,
+        input[type="email"]:focus,
         select:focus,
         textarea:focus {
             outline: none;
@@ -291,6 +293,7 @@
         }
 
         input[type="text"]::placeholder,
+        input[type="email"]::placeholder,
         textarea::placeholder {
             color: #567087;
         }
@@ -538,8 +541,21 @@
             <div class="two-col">
                 <div class="form-group"> <label for="name">Participant Name</label> <input type="text" id="name"
                         name="Participant_Name" required placeholder="Enter Your Name"> </div>
+                <div class="form-group"> <label for="email">Email Address</label> <input type="email" id="email"
+                    name="Email_Address" required placeholder="Enter Your Email"> </div>
+                </div>
+                <div class="two-col">
                 <div class="form-group"> <label for="rollno">Enrollment- Number</label> <input type="text"
-                        id="rollno" name="Roll_Number" required placeholder="e.g. 250120XX"> </div>
+                    id="rollno" name="Roll_Number" required placeholder="e.g. 250120XX"> </div>
+                <div class="form-group"> <label for="branch">Branch</label> <select id="branch" name="Branch"
+                    required>
+                    <option value="" disabled selected>Select Branch...</option>
+                    <option value="CE">CE</option>
+                    <option value="CSE">CSE</option>
+                    <option value="IT">IT</option>
+                    <option value="CE-IT/IOT">CE-IT/IOT</option>
+                    <option value="CE-AI">CE-AI</option>
+                    </select> </div>
             </div>
             <div class="two-col">
                 <div class="form-group"> <label for="gauntlet">Gauntlet Level</label> <select id="gauntlet" required
