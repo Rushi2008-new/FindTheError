@@ -164,9 +164,17 @@
             transition: width 0.3s ease;
         }
 
-        .stage-progress[data-active="1"]::after { width: 25%; }
-        .stage-progress[data-active="2"]::after { width: 50%; }
-        .stage-progress[data-active="3"]::after { width: 75%; }
+        .stage-progress[data-active="1"]::after {
+            width: 25%;
+        }
+
+        .stage-progress[data-active="2"]::after {
+            width: 50%;
+        }
+
+        .stage-progress[data-active="3"]::after {
+            width: 75%;
+        }
 
         .stage-step {
             position: relative;
@@ -249,6 +257,8 @@
             line-height: 1.5;
             font-weight: 500;
             overflow-wrap: anywhere;
+            white-space: pre-wrap;
+            font-family: 'IBM Plex Mono', 'Courier New', monospace;
         }
 
         .form-group {
@@ -542,19 +552,18 @@
                 <div class="form-group"> <label for="name">Participant Name</label> <input type="text" id="name"
                         name="Participant_Name" required placeholder="Enter Your Name"> </div>
                 <div class="form-group"> <label for="email">Email Address</label> <input type="email" id="email"
-                    name="Email_Address" required placeholder="Enter Your Email"> </div>
-                </div>
-                <div class="two-col">
-                <div class="form-group"> <label for="rollno">Enrollment- Number</label> <input type="text"
-                    id="rollno" name="Roll_Number" required placeholder="e.g. 250120XX"> </div>
-                <div class="form-group"> <label for="branch">Branch</label> <select id="branch" name="Branch"
-                    required>
-                    <option value="" disabled selected>Select Branch...</option>
-                    <option value="CE">CE</option>
-                    <option value="CSE">CSE</option>
-                    <option value="IT">IT</option>
-                    <option value="CE-IT/IOT">CE-IT/IOT</option>
-                    <option value="CE-AI">CE-AI</option>
+                        name="Email_Address" required placeholder="Enter Your Email"> </div>
+            </div>
+            <div class="two-col">
+                <div class="form-group"> <label for="rollno">Enrollment- Number</label> <input type="text" id="rollno"
+                        name="Roll_Number" required placeholder="e.g. 250120XX"> </div>
+                <div class="form-group"> <label for="branch">Branch</label> <select id="branch" name="Branch" required>
+                        <option value="" disabled selected>Select Branch...</option>
+                        <option value="CE">CE</option>
+                        <option value="CSE">CSE</option>
+                        <option value="IT">IT</option>
+                        <option value="CE-IT/IOT">CE-IT/IOT</option>
+                        <option value="CE-AI">CE-AI</option>
                     </select> </div>
             </div>
             <div class="two-col">
@@ -614,9 +623,29 @@
         const questionBanks = {
             C: {
                 Beginner: [
-                    "Scenario: Hello C program prints the wrong result because it uses an uninitialized variable. Initialize the variable before using it.",
-                    "Scenario: A C loop skips the last item in an array. Correct the loop boundary.",
-                    "Scenario: A C program divides by zero when processing user input. Add a basic validation check."
+ `#include <stdio.h>
+int main() {
+    float pi = 3.14159;
+    printf("Value of Pi: %d\n", pi);
+    return 0;
+}`,
+ `#include <stdio.h>
+int main() {
+    int count;
+    count = count + 5;
+    printf("Count is: %d\n", count);
+    return 0;
+}`,
+  `#include <stdio.h>
+int main() {
+    int mark = 45;
+    if (mark = 100) {
+        printf("Perfect score!\n");
+    } else {
+        printf("Not a perfect score.\n");
+    }
+    return 0;
+}`
                 ],
                 Intermediate: [
                     "Scenario: A C program crashes with a 'Segmentation fault' when trying to modify a string passed to a function. Fix the memory access issue.",
@@ -686,7 +715,7 @@
 
         function requestFullscreenMode() {
             if (!document.fullscreenElement && document.documentElement.requestFullscreen) {
-                document.documentElement.requestFullscreen().catch(() => {});
+                document.documentElement.requestFullscreen().catch(() => { });
             }
         }
 
@@ -948,8 +977,8 @@
                     submissionInProgress
                         ? "Your submission is already being sent. Please wait."
                         : submissionBlocked || levelTimedOut
-                        ? "Submission blocked. Reopen the website before submitting again."
-                        : "Complete every task in every difficulty level before submitting."
+                            ? "Submission blocked. Reopen the website before submitting again."
+                            : "Complete every task in every difficulty level before submitting."
                 );
                 return;
             }
