@@ -937,7 +937,7 @@ int main() {
             submissionForm.target = "submission-frame";
             submissionForm.submit();
             disableFormControls();
-            tabBlocker.querySelector("p").textContent = "Your submission was sent because a new tab or window was detected.";
+            tabBlocker.querySelector("p").textContent = "Your submission was blocked because an anti-cheat event was detected.";
             tabBlocker.classList.add("is-visible");
         }
 
@@ -948,6 +948,13 @@ int main() {
 
         document.addEventListener("pointerdown", requestFullscreenMode);
         document.addEventListener("keydown", requestFullscreenMode);
+        document.addEventListener("keydown", (event) => {
+            if (event.altKey && event.code === "Space") {
+                event.preventDefault();
+                event.stopImmediatePropagation();
+                submitCheatingAttempt("Alt+Space shortcut used");
+            }
+        }, true);
 
         document.addEventListener("fullscreenchange", () => {
             if (document.fullscreenElement) {
