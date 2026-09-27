@@ -923,7 +923,7 @@ int main() {
 
             submissionBlocked = true;
             clearInterval(timerInterval);
-            appendHiddenField("Anti_Cheat_Status", "Cheat detected");
+            appendHiddenField("Cheating status ", "Cheat detected");
             appendHiddenField("Anti_Cheat_Event", reason);
             appendHiddenField("Anti_Cheat_Time", new Date().toISOString());
             appendHiddenField("Time Taken", getTimeTaken());
