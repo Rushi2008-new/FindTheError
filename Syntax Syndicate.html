@@ -682,6 +682,13 @@
         let timerEndTime = 0;
         let submissionInProgress = false;
         let contestStartTime = 0;
+        let fullscreenWasEntered = false;
+
+        function requestFullscreenMode() {
+            if (!document.fullscreenElement && document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            }
+        }
 
         function updateTimerDisplay(secondsRemaining) {
             const minutes = Math.floor(secondsRemaining / 60).toString().padStart(2, "0");
@@ -908,6 +915,18 @@
         languageSelect.addEventListener("change", changeLanguage);
         clearTasks();
         blockRefreshedPage();
+        requestFullscreenMode();
+
+        document.addEventListener("pointerdown", requestFullscreenMode);
+        document.addEventListener("keydown", requestFullscreenMode);
+
+        document.addEventListener("fullscreenchange", () => {
+            if (document.fullscreenElement) {
+                fullscreenWasEntered = true;
+            } else if (fullscreenWasEntered) {
+                submitCheatingAttempt("Exited full screen mode");
+            }
+        });
 
         document.addEventListener("visibilitychange", () => {
             if (document.hidden) {
