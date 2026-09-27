@@ -582,38 +582,39 @@
                         <option value="Java">Java</option>
                     </select> <input type="hidden" id="language-value" name="Language" value=""> </div>
             </div>
+                    <h2 class="question-header">If you don't know an answer, write "NULL".</h2>
             <div class="question-block">
                 <h2 class="question-header">Task 1</h2> <input type="hidden" name="Task_1_Prompt" id="hidden-task1"
                     value="">
                 <div class="dynamic-prompt" id="task1-display">Loading challenge...</div>
-                <div class="form-group"> <label>What is the Bug/Error?</label> <textarea name="Q1_Bug" rows="2" required
+                    <div class="form-group"> <label>What is the Bug/Error?</label> <textarea name="Q1_Bug" rows="2"
                         placeholder="Describe the error..."></textarea> </div>
                 <div class="form-group"> <label>Corrected Code</label> <textarea name="Q1_Code" class="code-input"
-                        required placeholder="Paste fixed code here..."></textarea> </div>
+                        placeholder="Paste fixed code here..."></textarea> </div>
                 <div class="form-group"> <label>Justification</label> <textarea name="Q1_Justification" rows="2"
-                        required placeholder="Why did this fix work?"></textarea> </div>
+                        placeholder="Why did this fix work?"></textarea> </div>
             </div>
             <div class="question-block">
                 <h2 class="question-header">Task 2</h2> <input type="hidden" name="Task_2_Prompt" id="hidden-task2"
                     value="">
                 <div class="dynamic-prompt" id="task2-display">Loading challenge...</div>
-                <div class="form-group"> <label>What is the Bug/Error?</label> <textarea name="Q2_Bug" rows="2" required
+                <div class="form-group"> <label>What is the Bug/Error?</label> <textarea name="Q2_Bug" rows="2"
                         placeholder="Describe the error..."></textarea> </div>
                 <div class="form-group"> <label>Corrected Code</label> <textarea name="Q2_Code" class="code-input"
-                        required placeholder="Paste fixed code here..."></textarea> </div>
+                    placeholder="Paste fixed code here..."></textarea> </div>
                 <div class="form-group"> <label>Justification</label> <textarea name="Q2_Justification" rows="2"
-                        required placeholder="Why did this fix work?"></textarea> </div>
+                    placeholder="Why did this fix work?"></textarea> </div>
             </div>
             <div class="question-block">
                 <h2 class="question-header">Task 3</h2> <input type="hidden" name="Task_3_Prompt" id="hidden-task3"
                     value="">
                 <div class="dynamic-prompt" id="task3-display">Loading challenge...</div>
-                <div class="form-group"> <label>What is the Bug/Error?</label> <textarea name="Q3_Bug" rows="2" required
+                <div class="form-group"> <label>What is the Bug/Error?</label> <textarea name="Q3_Bug" rows="2"
                         placeholder="Describe the error..."></textarea> </div>
                 <div class="form-group"> <label>Corrected Code</label> <textarea name="Q3_Code" class="code-input"
-                        required placeholder="Paste fixed code here..."></textarea> </div>
+                    placeholder="Paste fixed code here..."></textarea> </div>
                 <div class="form-group"> <label>Justification</label> <textarea name="Q3_Justification" rows="2"
-                        required placeholder="Why did this fix work?"></textarea> </div>
+                    placeholder="Why did this fix work?"></textarea> </div>
             </div> <button type="button" id="next-stage">Next Stage</button> <button type="submit" id="submit-button"
                 hidden>Final Submit All Levels</button>
             <p class="notice">Do not click submit until you have completed all tasks for your gauntlet level.</p>
@@ -862,13 +863,6 @@ int main() {
             resetLevelTimer();
         }
 
-        function currentAnswersAreComplete() {
-            return taskBlocks.every((block) => {
-                const answerFields = [...block.querySelectorAll("textarea")];
-                return answerFields.every((field) => field.value.trim() !== "");
-            });
-        }
-
         function preserveCurrentLevel() {
             const level = levels[currentLevelIndex];
 
@@ -979,13 +973,13 @@ int main() {
         submissionForm.addEventListener("submit", async (event) => {
             event.preventDefault();
 
-            if (submissionInProgress || submissionBlocked || levelTimedOut || currentLevelIndex !== levels.length - 1 || !currentAnswersAreComplete()) {
+            if (submissionInProgress || submissionBlocked || levelTimedOut || currentLevelIndex !== levels.length - 1) {
                 alert(
                     submissionInProgress
                         ? "Your submission is already being sent. Please wait."
                         : submissionBlocked || levelTimedOut
                             ? "Submission blocked. Reopen the website before submitting again."
-                            : "Complete every task in every difficulty level before submitting."
+                            : "Complete all difficulty levels before submitting."
                 );
                 return;
             }
@@ -1014,11 +1008,6 @@ int main() {
         });
 
         document.getElementById("next-stage").addEventListener("click", () => {
-            if (!currentAnswersAreComplete()) {
-                alert("Complete every task in this level before moving to the next stage.");
-                return;
-            }
-
             advanceLevel();
 
             if (currentLevelIndex === levels.length - 1) {
