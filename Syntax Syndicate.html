@@ -615,6 +615,17 @@
                     placeholder="Paste fixed code here..."></textarea> </div>
                 <div class="form-group"> <label>Justification</label> <textarea name="Q3_Justification" rows="2"
                     placeholder="Why did this fix work?"></textarea> </div>
+            </div>
+            <div class="question-block">
+                <h2 class="question-header">Task 4</h2> <input type="hidden" name="Task_4_Prompt" id="hidden-task4"
+                    value="">
+                <div class="dynamic-prompt" id="task4-display">Loading challenge...</div>
+                <div class="form-group"> <label>What is the Bug/Error?</label> <textarea name="Q4_Bug" rows="2"
+                        placeholder="Describe the error..."></textarea> </div>
+                <div class="form-group"> <label>Corrected Code</label> <textarea name="Q4_Code" class="code-input"
+                    placeholder="Paste fixed code here..."></textarea> </div>
+                <div class="form-group"> <label>Justification</label> <textarea name="Q4_Justification" rows="2"
+                    placeholder="Why did this fix work?"></textarea> </div>
             </div> <button type="button" id="next-stage">Next Stage</button> <button type="submit" id="submit-button"
                 hidden>Final Submit All Levels</button>
             <p class="notice">Do not click submit until you have completed all tasks for your gauntlet level.</p>
@@ -646,44 +657,284 @@ int main() {
         printf("Not a perfect score.\n");
     }
     return 0;
+}`,
+`#include <stdio.h>
+int main() {
+    char grade = "A";
+    printf("Your grade is %c\n", grade);
+    return 0;
 }`
                 ],
                 Intermediate: [
-                    "Scenario: A C program crashes with a 'Segmentation fault' when trying to modify a string passed to a function. Fix the memory access issue.",
-                    "Scenario: A C program produces incorrect output because an array is accessed one position beyond its last element. Fix the loop boundary.",
-                    "Scenario: A C function changes a pointer parameter, but the caller's pointer remains unchanged. Correct the parameter passing logic."
+`#include <stdio.h>
+
+void swap(int x, int y) {
+    int temp = x;
+    x = y;
+    y = temp;
+}
+
+int main() {
+    int a = 5, b = 10;
+    swap(a, b);
+    printf("a = %d, b = %d\n", a, b);
+    return 0;
+}`,
+`#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int *data = (int*)malloc(3 * sizeof(int));
+    data[0] = 10;
+    data[1] = 20;
+    data[2] = 30;
+    
+    free(data);
+    printf("First element: %d\n", data[0]);
+    
+    return 0;
+}`,
+`#include <stdio.h>
+
+int main() {
+    int *ptr;
+    *ptr = 10;
+    printf("Value: %d\n", *ptr);
+    return 0;
+}`,
+`#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char str1[] = "apple";
+    char str2[] = "apple";
+    
+    if (str1 == str2) {
+        printf("Strings are equal.\n");
+    } else {
+        printf("Strings are different.\n");
+    }
+    return 0;
+}`
                 ],
                 Hard: [
-                    "Scenario: A C function returns a pointer to a local array, causing garbage values in the caller. Correct the memory allocation and lifetime.",
-                    "Scenario: A nested loop for C 2D matrix multiplication uses swapped indices, causing incorrect results or a buffer overflow. Correct the matrix traversal logic.",
-                    "Scenario: A memory leak is detected in a C program that reads a file inside a loop. Identify where free() or fclose() is missing."
+`#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+struct Node *front = NULL, *rear = NULL;
+
+void enqueue(int value) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = value;
+    newNode->next = NULL;
+
+    if (front == NULL && rear == NULL) {
+        front = rear = newNode;
+    } else {
+        rear->next = newNode;
+        // Something is missing here
+    }
+}`,
+`#include <stdio.h>
+#define SIZE 4
+
+int queue[SIZE];
+int front = -1, rear = -1;
+
+void enqueue(int value) {
+    if ((rear + 1) % SIZE == front) {
+        printf("Queue is full\n");
+    } else {
+        if (front == -1) front = 0;
+        rear = rear + 1 % SIZE;
+        queue[rear] = value;
+    }
+}`,
                 ],
                 Extreme: [
-                    "Scenario: A recursive C function to calculate Fibonacci numbers crashes due to a stack overflow. Implement the missing base case and prevent unnecessary recursion.",
-                    "Scenario: A C program corrupts heap memory after several reallocations. Correct the allocation size and pointer handling.",
-                    "Scenario: A multithreaded C program has a race condition while updating shared data. Protect the critical section correctly."
+`#include <stdio.h>
+#include <string.h>
+
+struct Student {
+    char name[50];
+    int roll_no;
+    int marks;
+};
+
+void calculate_average(struct Student arr[], int count) {
+    int total = 0;
+    
+    for (int i = 0; i <= count; i++) {
+        total += arr[i].marks;
+    }
+    
+    float average = total / count;
+    printf("Class Average: %.2f\n", average);
+}
+
+int main() {
+    struct Student students[3];
+    int count = 0;
+
+    printf("Enter details for 3 students:\n");
+    
+    while (count < 3) {
+        printf("Student Name: ");
+        scanf("%s", students[count].name);
+        
+        printf("Roll Number: ");
+        scanf("%d", students[count].roll_no);
+        
+        printf("Marks (out of 100): ");
+        scanf("%d", &students[count].marks);
+    }
+
+    calculate_average(students, count);
+    
+    return 0;
+}`
+
                 ]
             },
             Java: {
                 Beginner: [
-                    "Scenario: A Java program compares two strings with '==' and gives the wrong result. Correct the string comparison.",
-                    "Scenario: A Java loop skips the last item in an array. Correct the loop boundary.",
-                    "Scenario: A Java method returns the wrong result for zero input. Add the correct base or boundary case."
+`public class Main {
+    public static void main(String[] args) {
+        int[] scores = new int(5);
+        scores[0] = 95;
+        System.out.println("First score: " + scores[0]);
+    }
+}`,
+`public class Main {
+    public static void main(String[] args) {
+        int apples = 10;
+        double price = 2.5;
+        int totalCost = apples * price;
+        
+        System.out.println("Cost: " + totalCost);
+    }
+}`,
+`public class Main {
+    public static void main(String[] args) {
+        String word1 = "Java";
+        String word2 = new String("Java");
+        
+        if (word1 == word2) {
+            System.out.println("The words are exactly the same.");
+        } else {
+            System.out.println("The words are different.");
+        }
+    }
+}`,
+`public class Main {
+    public static void main(String[] args) {
+        String greeting = "Hello";
+        greeting.concat(" World");
+        
+        System.out.println(greeting);
+    }
+}`
                 ],
                 Intermediate: [
-                    "Scenario: A Java method intended to reverse a string throws a StringIndexOutOfBoundsException. Identify and resolve the boundary error.",
-                    "Scenario: An infinite loop occurs in a Java binary search implementation when the target is not in the array. Correct the loop bounds and midpoint update.",
-                    "Scenario: In Java, comparing two Integer objects with '==' returns false even when their values are both 1000. Fix the object comparison logic."
+`public class Main {
+    public static void main(String[] args) {
+        Integer wrapper = null;
+        int primitive = wrapper;
+        System.out.println("Value: " + primitive);
+    }
+}`,
+`abstract class Vehicle {
+    abstract void startEngine();
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Vehicle myCar = new Vehicle();
+        myCar.startEngine();
+    }
+}`,
+`class Animal {
+    String name;
+    Animal(String n) {
+        name = n;
+    }
+}
+
+class Dog extends Animal {
+    String breed;
+    Dog(String n, String b) {
+        breed = b;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Dog myDog = new Dog("Rex", "German Shepherd");
+    }
+}`
                 ],
                 Hard: [
-                    "Scenario: A Java program throws a NullPointerException while accessing a field on a possibly missing object. Add the correct null handling.",
-                    "Scenario: A Java ArrayList is modified inside an enhanced for loop, causing a ConcurrentModificationException. Correct the iteration logic.",
-                    "Scenario: A Java program reads a file but does not close the resource when an exception occurs. Correct the resource management."
+`public class Main {
+    public static void validateAge(int age) {
+        if (age < 18) {
+            throw IllegalArgumentException("Age must be at least 18");
+        }
+        System.out.println("Access granted.");
+    }
+
+    public static void main(String[] args) {
+        validateAge(15);
+    }
+}`,
+`class Student {
+    String name;
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Student[] classList = new Student[5];
+        classList[0].name = "Alice";
+        
+        System.out.println("First student: " + classList[0].name);
+    }
+}`,
+`import java.io.File;
+import java.io.FileReader;
+
+public class Main {
+    public static void main(String[] args) {
+        File file = new File("document.txt");
+        FileReader fr = new FileReader(file);
+        System.out.println("File opened successfully.");
+    }
+}`
                 ],
                 Extreme: [
-                    "Scenario: A Java application deadlocks because two threads lock shared resources in opposite orders. Correct the synchronization strategy.",
-                    "Scenario: A Java recursive algorithm causes a stack overflow for large input. Replace it with a safe iterative or optimized solution.",
-                    "Scenario: A Java program has a memory leak caused by listeners that are never removed. Correct the object lifecycle management."
+`public class Main {
+    public static void performTask() {
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            System.out.println("Thread was asked to stop.");
+        }
+    }
+
+    public static void main(String[] args) {
+        Thread worker = new Thread(() -> {
+            while (!Thread.currentThread().isInterrupted()) {
+                performTask();
+            }
+        });
+        
+        worker.start();
+        worker.interrupt();
+    }
+}`,
                 ]
             }
         };
@@ -701,8 +952,36 @@ int main() {
         const stageProgress = document.getElementById("stage-progress");
         const stageSteps = [...stageProgress.querySelectorAll(".stage-step")];
         const levels = ["Beginner", "Intermediate", "Hard", "Extreme"];
+        const questionCounts = { Beginner: 4, Intermediate: 3, Hard: 2, Extreme: 1 };
+        const levelTimeLimits = { Beginner: 15 * 60, Intermediate: 15 * 60, Hard: 20 * 60, Extreme: 20 * 60 };
         const taskBlocks = [...document.querySelectorAll(".question-block")];
-        const levelTimeLimit = 15 * 60;
+
+        function isQuestionClipboardAction(event) {
+            const targetIsQuestion = event.target instanceof Element
+                && event.target.closest(".question-block");
+            const selection = window.getSelection();
+            const selectionIsQuestion = selection && Array.from({ length: selection.rangeCount }, (_, index) => {
+                const range = selection.getRangeAt(index);
+                return taskBlocks.some((block) => range.intersectsNode(block));
+            }).some(Boolean);
+
+            return targetIsQuestion || selectionIsQuestion;
+        }
+
+        document.addEventListener("keydown", (event) => {
+            if ((event.ctrlKey || event.metaKey) && ["c", "v", "x"].includes(event.key.toLowerCase())
+                && isQuestionClipboardAction(event)) {
+                event.preventDefault();
+            }
+        }, true);
+
+        ["copy", "cut", "paste"].forEach((eventType) => {
+            document.addEventListener(eventType, (event) => {
+                if (isQuestionClipboardAction(event)) {
+                    event.preventDefault();
+                }
+            }, true);
+        });
 
         let currentLevelIndex = -1;
         let pageWasHidden = false;
@@ -753,6 +1032,7 @@ int main() {
             clearInterval(timerInterval);
             levelTimedOut = false;
             timerDisplay.classList.remove("is-expired");
+            const levelTimeLimit = levelTimeLimits[difficultySelect.value];
             updateTimerDisplay(levelTimeLimit);
             timerEndTime = Date.now() + levelTimeLimit * 1000;
             timerInterval = setInterval(() => {
@@ -788,6 +1068,7 @@ int main() {
         }
 
         function redirectAfterSubmission() {
+            tabBlocker.classList.remove("is-visible");
             window.location.href = "Submission Completed.html";
         }
 
@@ -812,13 +1093,20 @@ int main() {
         }
 
         function clearTasks() {
-            for (let taskNumber = 1; taskNumber <= 3; taskNumber += 1) {
+            taskBlocks.forEach((block, index) => {
+                const taskNumber = index + 1;
                 const taskDisplay = document.getElementById(`task${taskNumber}-display`);
                 const taskHidden = document.getElementById(`hidden-task${taskNumber}`);
 
                 taskDisplay.textContent = "Select a language and difficulty level to load a challenge.";
                 taskHidden.value = "";
-            }
+                taskHidden.disabled = true;
+                block.hidden = false;
+                block.querySelectorAll("textarea").forEach((field) => {
+                    field.value = "";
+                    field.disabled = true;
+                });
+            });
         }
 
         function assignTasks() {
@@ -830,16 +1118,26 @@ int main() {
             }
 
             const shuffledTasks = [...selectedPool].sort(() => Math.random() - 0.5);
-            const selectedTasks = shuffledTasks.slice(0, 3);
+            const taskCount = questionCounts[difficultySelect.value];
+            const selectedTasks = shuffledTasks.slice(0, taskCount);
 
-            for (let index = 0; index < selectedTasks.length; index += 1) {
+            taskBlocks.forEach((block, index) => {
                 const taskNumber = index + 1;
                 const display = document.getElementById(`task${taskNumber}-display`);
                 const hiddenInput = document.getElementById(`hidden-task${taskNumber}`);
+                const isActive = index < taskCount;
 
-                display.textContent = selectedTasks[index];
-                hiddenInput.value = selectedTasks[index];
-            }
+                block.hidden = !isActive;
+                hiddenInput.disabled = !isActive;
+                block.querySelectorAll("textarea").forEach((field) => {
+                    field.disabled = !isActive;
+                });
+
+                if (isActive) {
+                    display.textContent = selectedTasks[index];
+                    hiddenInput.value = selectedTasks[index];
+                }
+            });
         }
 
         function setLevel(level) {
@@ -866,7 +1164,7 @@ int main() {
         function preserveCurrentLevel() {
             const level = levels[currentLevelIndex];
 
-            taskBlocks.forEach((block, index) => {
+            taskBlocks.slice(0, questionCounts[level]).forEach((block, index) => {
                 const taskNumber = index + 1;
                 const answerFields = block.querySelectorAll("textarea");
 
@@ -917,7 +1215,7 @@ int main() {
         }
 
         function submitCheatingAttempt(reason) {
-            if (submissionBlocked) {
+            if (submissionBlocked || submissionInProgress) {
                 return;
             }
 
@@ -959,6 +1257,10 @@ int main() {
         });
 
         document.addEventListener("visibilitychange", () => {
+            if (submissionInProgress) {
+                return;
+            }
+
             if (document.hidden) {
                 pageWasHidden = true;
                 submitCheatingAttempt("Page hidden: tab changed, window minimized, or browser left");

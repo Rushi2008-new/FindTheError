@@ -4,15 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Submission Completed | Syntax Syndicate</title>
+    <title>Submission Completed | Club Database</title>
     <style>
         :root {
-            --bg-color: #0d1117;
-            --container-bg: #161b22;
-            --primary-green: #4ade80;
-            --text-main: #c9d1d9;
-            --muted-text: #8b949e;
-            --border-color: #30363d;
+            --bg-color: #08111f;
+            --container-bg: #101c2d;
+            --mint: #72f1c4;
+            --gold: #f3c969;
+            --coral: #ff886f;
+            --text-main: #d7e2ee;
+            --muted-text: #8ea4b8;
+            --border-color: #294056;
         }
 
         * {
@@ -20,77 +22,127 @@
         }
 
         body {
+            position: relative;
+            isolation: isolate;
+            overflow-x: hidden;
             min-height: 100vh;
             margin: 0;
-            padding: 2rem;
+            padding: clamp(1rem, 4vw, 3.5rem);
             display: grid;
             place-items: center;
-            background-color: var(--bg-color);
+            background:
+                radial-gradient(ellipse at 12% 8%, rgba(43, 104, 133, 0.28), transparent 34rem),
+                radial-gradient(ellipse at 88% 92%, rgba(43, 124, 103, 0.2), transparent 30rem),
+                var(--bg-color);
             color: var(--text-main);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Space Grotesk', 'Segoe UI', sans-serif;
         }
 
         .completion-card {
-            width: min(100%, 620px);
-            padding: 3.5rem 2.5rem;
+            position: relative;
+            overflow: hidden;
+            width: min(100%, 700px);
+            padding: clamp(2rem, 6vw, 4rem);
             border: 1px solid var(--border-color);
-            border-radius: 8px;
-            background-color: var(--container-bg);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            text-align: center;
+            border-radius: 18px;
+            background: linear-gradient(145deg, rgba(20, 42, 65, 0.98), rgba(12, 27, 44, 0.98));
+            box-shadow: 0 24px 70px rgba(0, 0, 0, 0.32);
+            animation: arrive 650ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
+        }
+
+        .completion-card::before {
+            position: absolute;
+            inset: 0 0 auto;
+            height: 4px;
+            background: linear-gradient(90deg, var(--mint), var(--gold), var(--coral));
+            content: "";
+        }
+
+        .brand {
+            margin: 0 0 3rem;
+            color: var(--gold);
+            font-family: 'IBM Plex Mono', 'Courier New', monospace;
+            font-size: 0.76rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
         }
 
         .success-mark {
-            width: 76px;
-            height: 76px;
-            margin: 0 auto 1.5rem;
+            width: 64px;
+            height: 64px;
+            margin-bottom: 1.75rem;
             display: grid;
             place-items: center;
-            border: 2px solid var(--primary-green);
-            border-radius: 50%;
-            color: var(--primary-green);
-            font-size: 2.5rem;
+            border: 1px solid rgba(114, 241, 196, 0.45);
+            border-radius: 18px;
+            background: rgba(114, 241, 196, 0.1);
+            color: var(--mint);
+            font-size: 2rem;
             font-weight: 700;
         }
 
         h1 {
-            margin: 0 0 1rem;
-            color: var(--primary-green);
-            font-size: clamp(2rem, 7vw, 3rem);
-            letter-spacing: 1px;
-            text-transform: uppercase;
+            max-width: 12ch;
+            margin: 0 0 1.25rem;
+            color: #f1f6fc;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 3rem;
+            font-weight: 500;
+            line-height: 1.08;
         }
 
-        p {
-            margin: 0 auto;
-            max-width: 30rem;
+        .message {
+            max-width: 34rem;
+            margin: 0;
+            color: var(--text-main);
+            font-size: 1.05rem;
             line-height: 1.6;
         }
 
         .details {
-            margin-top: 2rem;
-            padding-top: 1.25rem;
+            margin: 2.25rem 0 0;
+            padding: 1.25rem 0 0;
             border-top: 1px solid var(--border-color);
             color: var(--muted-text);
             font-size: 0.95rem;
+            line-height: 1.6;
         }
 
         .tagline {
-            margin-top: 1.5rem;
-            color: var(--primary-green);
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 0.9rem;
-            font-weight: 700;
-            letter-spacing: 1px;
+            margin: 2rem 0 0;
+            color: var(--mint);
+            font-family: 'IBM Plex Mono', 'Courier New', monospace;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+        }
+
+        @keyframes arrive {
+            from {
+                opacity: 0;
+                transform: translateY(14px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @media (max-width: 520px) {
-            body {
-                padding: 1rem;
+            .brand {
+                margin-bottom: 2.5rem;
             }
 
+            h1 {
+                font-size: 2.4rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
             .completion-card {
-                padding: 2.5rem 1.5rem;
+                animation: none;
             }
         }
     </style>
@@ -98,11 +150,12 @@
 
 <body>
     <main class="completion-card" role="status" aria-live="polite">
+        <p class="brand">Coding Club / Response Received</p>
         <div class="success-mark" aria-hidden="true">&#10003;</div>
         <h1>Submission Completed</h1>
-        <p>Your answers have been submitted successfully. Thank you for completing the Syntax Syndicate challenge.</p>
+        <p class="message">Your answers have been submitted successfully. Thank you for completing the 'Find The Error' challenge.</p>
         <p class="details">Your response has been sent for evaluation. You may now close this page.</p>
-        <p class="tagline">DEBUG. JUSTIFY. CONQUER.</p>
+        <p class="tagline">RECORD RECEIVED / ENTRY CLOSED</p>
     </main>
 </body>
 
