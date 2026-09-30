@@ -719,26 +719,22 @@ int main() {
                 ],
                 Hard: [
 `#include <stdio.h>
-#include <stdlib.h>
 
-struct Node {
-    int data;
-    struct Node* next;
-};
-
-struct Node *front = NULL, *rear = NULL;
-
-void enqueue(int value) {
-    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
-    newNode->data = value;
-    newNode->next = NULL;
-
-    if (front == NULL && rear == NULL) {
-        front = rear = newNode;
-    } else {
-        rear->next = newNode;
-        // Something is missing here
+int main() {
+    int choice = 2;
+    
+    switch(choice) {
+        int target_id = 99; 
+        
+        case 1:
+            printf("Initializing system...\n");
+            break;
+        case 2:
+            printf("Connecting to target ID: %d\n", target_id);
+            break;
     }
+    
+    return 0;
 }`,
 `#include <stdio.h>
 #define SIZE 4
@@ -758,43 +754,19 @@ void enqueue(int value) {
                 ],
                 Extreme: [
 `#include <stdio.h>
-#include <string.h>
-
-struct Student {
-    char name[50];
-    int roll_no;
-    int marks;
-};
-
-void calculate_average(struct Student arr[], int count) {
-    int total = 0;
-    
-    for (int i = 0; i <= count; i++) {
-        total += arr[i].marks;
-    }
-    
-    float average = total / count;
-    printf("Class Average: %.2f\n", average);
-}
+#include <stdint.h>
 
 int main() {
-    struct Student students[3];
-    int count = 0;
-
-    printf("Enter details for 3 students:\n");
+    uint32_t mask = 1;
+    uint32_t shift_amount = 32;
     
-    while (count < 3) {
-        printf("Student Name: ");
-        scanf("%s", students[count].name);
-        
-        printf("Roll Number: ");
-        scanf("%d", students[count].roll_no);
-        
-        printf("Marks (out of 100): ");
-        scanf("%d", &students[count].marks);
+    uint32_t result = mask << shift_amount;
+    
+    if (result == 0) {
+        printf("Mask cleared.\n");
+    } else {
+        printf("Mask remains: %u\n", result);
     }
-
-    calculate_average(students, count);
     
     return 0;
 }`
@@ -915,26 +887,23 @@ public class Main {
 }`
                 ],
                 Extreme: [
-`public class Main {
-    public static void performTask() {
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            System.out.println("Thread was asked to stop.");
-        }
-    }
+`// File 1: com/company/model/User.java
+package com.company.model;
 
+public class User {
+    String username; 
+}
+
+// File 2: com/company/Main.java
+package com.company;
+import com.company.model.User;
+
+public class Main {
     public static void main(String[] args) {
-        Thread worker = new Thread(() -> {
-            while (!Thread.currentThread().isInterrupted()) {
-                performTask();
-            }
-        });
-        
-        worker.start();
-        worker.interrupt();
+        User u = new User();
+        u.username = "admin";
     }
-}`,
+}`
                 ]
             }
         };
